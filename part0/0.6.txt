@@ -1,0 +1,20 @@
+# https://www.websequencediagrams.com/
+
+title new note - spa
+
+note over browser:
+clicking save note button
+handled by javascript adds a note to DOM
+and send json representation
+of a note in a message body
+end note
+
+browser->server: HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+
+note over server:
+server push note to an array
+and return 201 status
+with a reasurring json in message body
+end note
+
+server-->browser: 201 created
