@@ -8,16 +8,23 @@ const App = () => {
 
   return (
     <div>
-      {counter}
-      <button onClick={setValue(counter + 1)}>
-        plus
-      </button>
-      <button onClick={setValue(0)}>
-        zero
-      </button>
+      <Display counter={counter} />
+      <Button text="plus"
+        clickHandler={setValue(counter + 1)} />
+      <Button text="minus"
+        clickHandler={setValue(counter - 1)} />
+      <Button text="zero"
+        clickHandler={setValue(0)} />
     </div>
   )
 }
+
+const Display = ({ counter }) => <div>{counter}</div>
+const Button = ({ text, clickHandler }) => (
+  <button onClick={clickHandler}>
+    {text}
+  </button>
+)
 
 ReactDOM.render(
   <App />,
