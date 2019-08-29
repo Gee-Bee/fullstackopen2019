@@ -21,14 +21,29 @@ const App = () => {
   return (
     <div>
       {left}
-      <button onClick={handleLeftClick}>
-        left
-      </button>
+      <Button onClick={handleLeftClick} text="left" />
+      <Button onClick={handleRightClick} text="right" />
       {right}
-      <button onClick={handleRightClick}>
-        right
-      </button>
-      <p>{allClicks.join(' ')}</p>
+      <History allClicks={allClicks} />
+    </div>
+  )
+}
+
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}>
+    {text}
+  </button>
+)
+
+const History = ({ allClicks }) => {
+  if (allClicks.length === 0) {
+    return (
+      <div>the app is used by pressing the buttons</div>
+    )
+  }
+  return (
+    <div>
+      button press history: {allClicks.join(' ')}
     </div>
   )
 }
