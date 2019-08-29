@@ -2,29 +2,30 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
-  const [ counter, setCounter ] = useState(0);
+  const [ clicks, setClicks ] = useState({
+    left: 0,
+    right: 0,
+  });
 
-  const setValue = value => () => setCounter(value);
+  const handleLeftClick = () =>
+    setClicks({ ...clicks, left: clicks.left + 1 });
+
+  const handleRightClick = () =>
+    setClicks({...clicks, right: clicks.right + 1 });
 
   return (
     <div>
-      <Display counter={counter} />
-      <Button text="plus"
-        clickHandler={setValue(counter + 1)} />
-      <Button text="minus"
-        clickHandler={setValue(counter - 1)} />
-      <Button text="zero"
-        clickHandler={setValue(0)} />
+      {clicks.left}
+      <button onClick={handleLeftClick}>
+        left
+      </button>
+      {clicks.right}
+      <button onClick={handleRightClick}>
+        right
+      </button>
     </div>
   )
 }
-
-const Display = ({ counter }) => <div>{counter}</div>
-const Button = ({ text, clickHandler }) => (
-  <button onClick={clickHandler}>
-    {text}
-  </button>
-)
 
 ReactDOM.render(
   <App />,
