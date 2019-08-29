@@ -2,27 +2,33 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
-  const [ clicks, setClicks ] = useState({
-    left: 0,
-    right: 0,
-  });
+  const [ left, setLeft ] = useState(0);
+  const [ right, setRight ] = useState(0);
+  const [ allClicks, setAll ] = useState([]);
 
-  const handleLeftClick = () =>
-    setClicks({ ...clicks, left: clicks.left + 1 });
+  const handleLeftClick = () => {
+    setLeft(left + 1);
+    setAll(allClicks.concat('L'));
+  }
 
-  const handleRightClick = () =>
-    setClicks({...clicks, right: clicks.right + 1 });
+  const handleRightClick = () => {
+    setRight(right + 1);
+    setAll(allClicks.concat('R'));
+  }
+
+  console.log('rendering...')
 
   return (
     <div>
-      {clicks.left}
+      {left}
       <button onClick={handleLeftClick}>
         left
       </button>
-      {clicks.right}
+      {right}
       <button onClick={handleRightClick}>
         right
       </button>
+      <p>{allClicks.join(' ')}</p>
     </div>
   )
 }
