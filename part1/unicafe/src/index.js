@@ -2,9 +2,18 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const Statistics = (props) => {
+  const header = <h1>statistics</h1>;
+  if (props.good === 0 && props.neutral === 0 && props.bad === 0) {
+    return (
+      <>
+        {header}
+        <div>No feedback given</div>
+      </>
+    )
+  }
   return (
     <>
-      <h1>statistics</h1>
+      {header}
       <div>good {props.good}</div>
       <div>neutral {props.neutral}</div>
       <div>bad {props.bad}</div>
