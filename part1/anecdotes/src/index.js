@@ -4,15 +4,15 @@ import ReactDOM from 'react-dom'
 const App = (props) => {
   const randomIdx = () => Math.floor(Math.random() * anecdotes.length);
   const [selected, setSelected] = useState(randomIdx);
-  const [points, setPoints] = useState({});
+  const [points, setPoints] = useState(
+    new Array(anecdotes.length).fill(0)
+  );
 
   const selectRandom = () => setSelected(randomIdx());
   const handleVote = () => {
-    return setPoints({ ...points, [selected]: getPoints() + 1 });
-  }
-
-  const getPoints = () => {
-    return points[selected] || 0;
+    const newPoints = [...points]
+    newPoints[selected] += 1;
+    setPoints(newPoints);
   }
 
   return (
@@ -21,7 +21,7 @@ const App = (props) => {
         {props.anecdotes[selected]}
       </div>
       <div>
-        has {getPoints()} votes
+        has {points[selected]} votes
       </div>
       <button onClick={handleVote}>vote</button>
       <button onClick={selectRandom}>next anecdote</button>
