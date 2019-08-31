@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
+import Filter from './components/Filter';
+import PersonForm from './components/PersonForm';
+import Persons from './components/Persons';
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -11,50 +15,18 @@ const App = () => {
   const [ newNumber, setNewNumber ] = useState('');
   const [ filterValue, setFilterValue ] = useState('');
 
-  const addPerson = (e) => {
-    e.preventDefault();
-    if (persons.find(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
-    } else {
-      const personObject = {
-        name: newName,
-        number: newNumber,
-      };
-      setPersons(persons.concat(personObject));
-      setNewName('');
-      setNewNumber('');
-    }
-  };
-
-  const personsToShow = persons.filter(person => (
-    person.name.toLocaleLowerCase()
-      .includes(filterValue.toLocaleLowerCase())
-  ));
-
-  const rows = personsToShow.map(person =>
-    <div key={person.name}>{person.name} {person.number}</div>
-  )
-
   return (
     <div>
       <h2>Phonebook</h2>
-        <div>
-          filter shown with <input value={filterValue} onChange={(e) => setFilterValue(e.target.value)}></input>
-        </div>
+      <Filter value={filterValue} setValue={setFilterValue} />
       <h2>add a new</h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={(e) => setNewName(e.target.value)}/>
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={(e) => setNewNumber(e.target.value)}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm
+        persons={persons} setPersons={setPersons}
+        newName={newName} setNewName={setNewName}
+        newNumber={newNumber} setNewNumber={setNewNumber}
+      />
       <h2>Numbers</h2>
-      {rows}
+      <Persons persons={persons} filterValue={filterValue} />
     </div>
   )
 }
