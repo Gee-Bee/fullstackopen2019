@@ -6,6 +6,7 @@ import Countries from './components/Countries';
 import Country from './components/Country';
 
 const App = () => {
+  const [ country, setCountry ] = useState();
   const [ countries, setCountries ] = useState([]);
   const [ filterValue, setFilterValue ] = useState('');
 
@@ -25,15 +26,18 @@ const App = () => {
     || filteredCountries.find((country) =>
       country.name.toLocaleLowerCase() === filterValue.toLocaleLowerCase()
     );
+  if (!country && matchedCountry) {
+    setCountry(matchedCountry);
+  }
 
   return (
     <>
-      <Filter value={filterValue} setValue={setFilterValue} />
+      <Filter value={filterValue} setValue={setFilterValue} setCountry={setCountry}/>
       { filterValue.length > 0 &&
-        (matchedCountry
-        ? <Country country={matchedCountry} />
+        (country
+        ? <Country country={country} />
         : filteredCountries.length < 10
-        ? <Countries countries={filteredCountries} />
+        ? <Countries countries={filteredCountries} setCountry={setCountry}/>
         : <div>Too many matches, specify another filter</div>)
       }
     </>
