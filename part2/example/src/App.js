@@ -20,7 +20,7 @@ const App = (props) => {
     <div>
       <h1>Notes</h1>
       <ToggleAll showAll={showAll} setShowAll={setShowAll} />
-      <Notes notes={notes} showAll={showAll} />
+      <Notes notes={notes} setNotes={setNotes} showAll={showAll} />
       <NoteForm notes={notes} setNotes={setNotes}
         newNote={newNote} setNewNote={setNewNote}
       />

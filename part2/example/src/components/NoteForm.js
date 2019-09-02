@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 const NoteForm = ({
   notes, setNotes,
@@ -6,19 +7,20 @@ const NoteForm = ({
 }) => {
   const addNote = (event) => {
     event.preventDefault();
-    console.log('button clicked', event.target);
     const noteObject = {
       content: newNote,
       date: new Date().toISOString(),
       important: Math.random() > 0.5,
-      id: notes.length + 1,
-    }
-    setNotes(notes.concat(noteObject));
-    setNewNote('');
+    };
+    axios
+      .post('http://localhost:3001/notes', noteObject)
+      .then(response => {
+        setNotes(notes.concat(response.data));
+        setNewNote('');
+      })
   }
 
   const handleNoteChange = (event) => {
-    console.log('input changed', event.target.value, newNote);
     setNewNote(event.target.value);
   }
 
