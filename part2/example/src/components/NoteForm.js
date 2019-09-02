@@ -1,5 +1,6 @@
 import React from 'react';
-import axios from 'axios';
+
+import notesService from '../services/notes';
 
 const NoteForm = ({
   notes, setNotes,
@@ -12,10 +13,10 @@ const NoteForm = ({
       date: new Date().toISOString(),
       important: Math.random() > 0.5,
     };
-    axios
-      .post('http://localhost:3001/notes', noteObject)
-      .then(response => {
-        setNotes(notes.concat(response.data));
+    notesService
+      .create(noteObject)
+      .then((newNote) => {
+        setNotes(notes.concat(newNote))
         setNewNote('');
       })
   }

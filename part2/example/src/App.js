@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
+import noteService from './services/notes';
 import ToggleAll from './components/ToggleAll';
 import Notes from './components/Notes';
 import NoteForm from './components/NoteForm';
@@ -11,9 +11,9 @@ const App = (props) => {
   const [showAll, setShowAll] = useState(true);
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/notes')
-      .then(({ data }) => setNotes(data))
+    noteService
+      .getAll()
+      .then((initialNotes) => setNotes(initialNotes));
   }, [])
 
   return (

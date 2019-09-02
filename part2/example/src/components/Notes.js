@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 
+import notesService from '../services/notes';
 import Note from './Note';
 
 const Notes = ({ notes, setNotes, showAll }) => {
@@ -14,10 +14,10 @@ const Notes = ({ notes, setNotes, showAll }) => {
       ...note,
       important: !note.important,
     }
-    axios
-      .put(`http://localhost:3001/notes/${id}`, changedNote)
-      .then(response =>
-        setNotes(notes.map(note => note.id === id ? response.data : note))
+    notesService
+      .update(id, changedNote)
+      .then((returnedNote) =>
+        setNotes(notes.map(note => note.id === id ? returnedNote : note))
       )
   }
 
