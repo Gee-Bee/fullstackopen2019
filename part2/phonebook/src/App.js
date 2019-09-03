@@ -28,7 +28,10 @@ const App = () => {
         newNumber={newNumber} setNewNumber={setNewNumber}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} filterValue={filterValue} />
+      <Persons
+        persons={persons} setPersons={setPersons}
+        filterValue={filterValue}
+      />
     </div>
   )
 }
