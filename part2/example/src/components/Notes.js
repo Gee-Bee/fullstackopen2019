@@ -3,7 +3,7 @@ import React from 'react';
 import notesService from '../services/notes';
 import Note from './Note';
 
-const Notes = ({ notes, setNotes, showAll }) => {
+const Notes = ({ notes, setNotes, showAll, setErrorMsg }) => {
   const notesToShow = showAll
     ? notes
     : notes.filter(note => note.important);
@@ -19,10 +19,11 @@ const Notes = ({ notes, setNotes, showAll }) => {
       .then((returnedNote) =>
         setNotes(notes.map(note => note.id === id ? returnedNote : note))
       )
-      .catch(error => {
-        alert(
-          `the note '${note.content}' was already deleted from server`
-        );
+      .catch(() => {
+        setErrorMsg(`Note '${note.content}' was already deleted from server`)
+        setTimeout(() =>
+          setErrorMsg(null)
+        , 5000)
         setNotes(notes.filter(n => n.id !== id))
       })
 
