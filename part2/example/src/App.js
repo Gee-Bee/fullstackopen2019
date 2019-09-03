@@ -4,9 +4,10 @@ import noteService from './services/notes';
 import ToggleAll from './components/ToggleAll';
 import Notes from './components/Notes';
 import NoteForm from './components/NoteForm';
-import Notification from './components/Notification'
+import Notification from './components/Notification';
+import Footer from './components/Footer';
 
-const App = (props) => {
+const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showAll, setShowAll] = useState(true);
@@ -20,7 +21,7 @@ const App = (props) => {
 
   return (
     <div>
-      <h1>Notes</h1>
+      <h1 style={{color: 'blue'}}>Notes</h1>
       <Notification message={errorMsg} />
       <ToggleAll showAll={showAll} setShowAll={setShowAll} />
       <Notes
@@ -31,6 +32,7 @@ const App = (props) => {
       <NoteForm notes={notes} setNotes={setNotes}
         newNote={newNote} setNewNote={setNewNote}
       />
+      <Footer />
     </div>
   )
 }
