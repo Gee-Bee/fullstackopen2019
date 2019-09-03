@@ -8,21 +8,35 @@ const personForm = ({
     newNumber, setNewNumber
   }) => {
 
+  const eraseForm = () => {
+    setNewName('');
+    setNewNumber('');
+  }
+
   const addPerson = (e) => {
     e.preventDefault();
-    if (persons.find(person => person.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
+    const existingPerson = persons.find(person => person.name === newName);
+    const confirmMsg = `${newName} is already added to phonebook, replace to old number with a new one?`;
+    const newPerson = {
+      name: newName,
+      number: newNumber,
+    }
+    if (existingPerson && window.confirm(confirmMsg)) {
+      personsService
+        .update(existingPerson.id, newPerson)
+        .then(updatedPerson => {
+          setPersons(persons.map(person =>
+            person.id === updatedPerson.id
+            ? updatedPerson : person
+          ))
+          eraseForm()
+        })
     } else {
-      const newPerson = {
-        name: newName,
-        number: newNumber,
-      };
       personsService
         .create(newPerson)
         .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson));
-          setNewName('');
-          setNewNumber('');
+          eraseForm();
         })
     }
   };
