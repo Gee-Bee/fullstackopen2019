@@ -6,7 +6,7 @@ const personForm = ({
     persons, setPersons,
     newName, setNewName,
     newNumber, setNewNumber,
-    setMessage
+    setNotification
   }) => {
 
   const eraseForm = () => {
@@ -15,8 +15,8 @@ const personForm = ({
   }
 
   const displayMessage = (msg) => {
-    setMessage(msg);
-    setTimeout(() => setMessage(null), 5000);
+    setNotification({message: msg});
+    setTimeout(() => setNotification(null), 5000);
   }
 
   const addPerson = (e) => {
