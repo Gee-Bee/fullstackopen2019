@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.json())
 
 let notes = [
   {
@@ -44,6 +47,31 @@ app.delete('/notes/:id', (req, res) => {
   const id = Number(req.params.id);
   notes = notes.filter(note => note.id !== id);
   res.status(204).end();
+});
+
+const generateId = () => (Math.max(...notes.map(note => note.id)) || 0) + 1;
+
+app.post('/notes', (req, res) => {
+  // console.log(req.get('content-Type'));
+  // console.log(req.headers);
+  const body = req.body;
+
+  if (!body.content) {
+    return res.status(400).json({
+      error: 'content missing'
+    })
+  }
+
+  const note = {
+    content: body.content,
+    important: body.important || false,
+    date: new Date(),
+    id: generateId()
+  }
+
+  notes = notes.concat(note);
+
+  res.status(201).json(note);
 });
 
 const PORT = 3001;
