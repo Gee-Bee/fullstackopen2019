@@ -14,8 +14,13 @@ const personForm = ({
     setNewNumber('');
   }
 
-  const displayMessage = (msg) => {
-    setNotification({message: msg});
+  const displayMessage = (msg, type) => {
+    const notification = {
+      message: msg
+    }
+    if (type)
+      notification.type = type
+    setNotification(notification);
     setTimeout(() => setNotification(null), 5000);
   }
 
@@ -47,6 +52,12 @@ const personForm = ({
         setPersons(persons.concat(returnedPerson));
         eraseForm();
         displayMessage(`Added ${newPerson.name}`);
+      })
+      .catch((err) => {
+        const errors = err.response && err.response.data.error;
+        if (errors) {
+         displayMessage(errors.map(e => <div key={e}>{e}</div>), 'error')
+        }
       })
     }
   };
