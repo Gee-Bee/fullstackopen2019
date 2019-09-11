@@ -1,3 +1,6 @@
 [submodule "part3/phonebook-backend"]
 	path = part3/phonebook-backend
-	url = https://github.com/Gee-Bee/fullstackopen2019-part3.git
+	url = https://github.com/Gee-Bee/fullstackopen2019-phonebook-backend.git
+[submodule "part3/example-notes-backend"]
+	path = part3/example-notes-backend
+	url = https://github.com/Gee-Bee/fullstackopen2019-notes-backend.git
