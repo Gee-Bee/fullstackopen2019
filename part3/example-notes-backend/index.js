@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser');
 
+const bodyParser = require('body-parser');
 app.use(bodyParser.json())
+
+const cors = require('cors');
+app.use(cors());
 
 let notes = [
   {
