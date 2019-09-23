@@ -32,7 +32,7 @@ const personForm = ({
       number: newNumber,
     }
     if (existingPerson) {
-      const confirmMsg = `${newName} is already added to phonebook, replace to old number with a new one?`;
+      const confirmMsg = `${newName} is already added to phonebook, replace the old number with a new one?`;
       if (window.confirm(confirmMsg)) {
         personsService
           .update(existingPerson.id, newPerson)
