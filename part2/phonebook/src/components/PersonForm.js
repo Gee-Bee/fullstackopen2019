@@ -31,6 +31,12 @@ const personForm = ({
       name: newName,
       number: newNumber,
     }
+    const errorHandler = (error) => {
+      const errorMsg = error.response && error.response.data.error;
+      if (errorMsg) {
+        displayMessage(errorMsg, 'error')
+      }
+    }
     if (existingPerson) {
       const confirmMsg = `${newName} is already added to phonebook, replace the old number with a new one?`;
       if (window.confirm(confirmMsg)) {
@@ -44,6 +50,7 @@ const personForm = ({
             eraseForm();
             displayMessage(`Changed number for ${newPerson.name}`);
           })
+          .catch(errorHandler);
       }
     } else {
       personsService
@@ -53,12 +60,7 @@ const personForm = ({
         eraseForm();
         displayMessage(`Added ${newPerson.name}`);
       })
-      .catch((err) => {
-        const errors = err.response && err.response.data.error;
-        if (errors) {
-         displayMessage(errors.map(e => <div key={e}>{e}</div>), 'error')
-        }
-      })
+      .catch(errorHandler);
     }
   };
 
