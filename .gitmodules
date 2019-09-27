@@ -7,3 +7,6 @@
 [submodule "part4/example-notes-backend"]
 	path = part4/example-notes-backend
 	url = https://github.com/Gee-Bee/fullstackopen2019-notes-backend.git
+[submodule "part4/bloglist-backend"]
+	path = part4/bloglist-backend
+	url = https://github.com/Gee-Bee/fullstackopen2019-bloglist-backend.git
